@@ -1,0 +1,26 @@
+<!--注册模块-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <form method="get" action='/registuser'>
+            <label>用户名：<input type="text" name="user" value=""></label>
+            <label>密码：<input type="password" name="password" value=""></label>
+            <label>用户等级：
+                <input name="level" list="levellist"/>
+                <datalist name="levellist">
+                    <option value="4" selected="selected">公开</option>
+                    <option value="3">秘密</option>
+                    <option value="2">机密</option>
+                    <option value="1">绝密</option>
+                </datalist>
+            </label>
+            <input type="submit" value="注册">
+        </form>
+    </body>
+</html>
