@@ -5,9 +5,9 @@ from flask import Flask, render_template, request
 from config import DevConfig
 from flask_sqlalchemy import SQLAlchemy
 #from sqlalchemy import func
-#from flask_wtf import Form
-#from wtforms import StringField, TextAreaField
-#from wtforms.validators import DataRequired, Length
+from flask_wtf import Form
+from wtforms import StringField, TextAreaField
+from wtforms.validators import DataRequired, Length
 from datetime import datetime
 from hashlib import md5
 from random import randint
@@ -20,7 +20,6 @@ app = Flask(__name__)
 app.config.from_object(DevConfig)
 db = SQLAlchemy(app)
 len_para = int(SM2.Fp / 4)
-current_level = 4
 
 class data_query(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -70,11 +69,70 @@ class data_query(db.Model):
     def __repr__(self):
         return "<DATA '{}'>".format(self.name)
     
+
+class query_input(Form):
+    name = StringField('Name',validators=[DataRequired(),Length(max=255)])
+    
+
 @app.route('/')
 def home():
     return render_template(
         'home.html'
     )
+    
+@app.route('/query_1', methods=['POST','GET'])
+def query_1():
+    queryname = request.form.get("queryname")
+    result = data_query.query.filter(data_query.name.like("%"+queryname+"%")).first_or_404()
+    return render_template(
+        'query_1.html',
+        attribute1 = result.attribute1,
+        attribute2 = result.attribute2,
+        attribute3 = result.attribute3,
+        attribute4 = result.attribute4,
+        node_root = result.node_root
+    )
+    
+@app.route('/query_2', methods=['POST','GET'])
+def query_2():
+    queryname = request.form.get("queryname")
+    result = data_query.query.filter(data_query.name.like("%"+queryname+"%")).first_or_404()
+    #result = data_query.query.filter_by(name=queryname).first_or_404()
+    return render_template(
+        'query_2.html',
+        verify_value1 = result.verify_value1,
+        attribute2 = result.attribute2,
+        attribute3 = result.attribute3,
+        attribute4 = result.attribute4,
+        node_root = result.node_root
+    )
+    
+@app.route('/query_3', methods=['POST','GET'])
+def query_3():
+    queryname = request.form.get("queryname")
+    result = data_query.query.filter(data_query.name.like("%"+queryname+"%")).first_or_404()
+    return render_template(
+        'query_3.html',
+        node1 = node1,
+        attribute3 = result.attribute3,
+        attribute4 = result.attribute4,
+        node_root = result.node_root
+    )
+    
+@app.route('/query_4', methods=['POST','GET'])
+def query_4():
+    queryname = request.form.get("queryname")
+    result = data_query.query.filter(data_query.name.like("%"+queryname+"%")).first_or_404()
+    return render_template(
+        'query_4.html',
+        node2 = node2,
+        attribute4 = result.attribute4,
+        node_root = result.node_root
+    )
+    
+@app.route('/query/<int:current_level>')
+def querypage(current_level):
+    return render_template('query.html', current_level=current_level)
     
 @app.route('/loginhome')
 def login():
@@ -89,7 +147,7 @@ def getLoginRequest():
     cursor = db2.cursor()
 
     # SQL 查询语句
-    sql = "select user.user, password, private_key from user, private_key where user.user='%s'" % request.args.get('user')+" and user.user = private_key.user"
+    sql = "select user.user, password, private_key, user.level from user, private_key where user.user='%s'" % request.args.get('user')+" and user.user = private_key.user"
 
     try:
         # 执行sql语句
@@ -104,8 +162,11 @@ def getLoginRequest():
         M = bytes.fromhex(m)
 
         if M.decode() == request.args.get('password'):
-            return '登录成功'
-
+            
+            return render_template('loginsuccess.html', current_level=results[3])
+            #ret = render_template('query.html', current_level=results[3])
+            #print(ret)
+            #return render_template('query.html', current_level=results[3])
         else:
             return '用户名或密码不正确'
 

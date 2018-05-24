@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block body %}
+<p>登录成功</p>
+<h6>{{ current_level }}</h6>
+<a href="{{ url_for('querypage', current_level=current_level) }}">here</a>
+{% endblock %}
