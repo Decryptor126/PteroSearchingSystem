@@ -113,7 +113,7 @@ def query_3():
     result = data_query.query.filter(data_query.name.like("%"+queryname+"%")).first_or_404()
     return render_template(
         'query_3.html',
-        node1 = node1,
+        node1 = result.node1,
         attribute3 = result.attribute3,
         attribute4 = result.attribute4,
         node_root = result.node_root
@@ -125,7 +125,7 @@ def query_4():
     result = data_query.query.filter(data_query.name.like("%"+queryname+"%")).first_or_404()
     return render_template(
         'query_4.html',
-        node2 = node2,
+        node2 = result.node2,
         attribute4 = result.attribute4,
         node_root = result.node_root
     )
