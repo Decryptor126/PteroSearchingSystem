@@ -79,7 +79,20 @@ def home():
     return render_template(
         'home.html'
     )
-    
+
+@app.route('/home')
+def mainpage():
+    return render_template('home.html')
+
+@app.route('/loginpage')
+def loginpage():
+    return render_template('login.html')
+
+@app.route('/regpage')
+def regpage():
+    return render_template('reg.html')
+
+
 @app.route('/query_1', methods=['POST','GET'])
 def query_1():
     queryname = request.form.get("queryname")
@@ -132,11 +145,11 @@ def query_4():
     
 @app.route('/query/<int:current_level>')
 def querypage(current_level):
-    return render_template('query.html', current_level=current_level)
+    return render_template('home.html', current_level=current_level)
     
-@app.route('/loginhome')
-def login():
-    return render_template('login.html')
+
+
+
 
 # 获取登录参数及处理
 @app.route('/login')
@@ -148,47 +161,39 @@ def getLoginRequest():
 
     # SQL 查询语句
     sql = "select user.user, password, private_key, user.level from user, private_key where user.user='%s'" % request.args.get('user')+" and user.user = private_key.user"
-
-    try:
-        # 执行sql语句
-        cursor.execute(sql)
-        results = cursor.fetchall()[0]
-
+    cursor.execute(sql)
+    result_all = cursor.fetchall()
+    if(len(result_all)==0):
+        return '用户名或密码不正确'
+    else:
+        results = result_all[0]
         '''
         解密函数Decrypt
         例子中privatekey为私钥 pwd为密文 解密后为16进制数据
         '''
         m = SM2.Decrypt(results[1], results[2], len_para)
         M = bytes.fromhex(m)
-
         if M.decode() == request.args.get('password'):
-            
-            return render_template('loginsuccess.html', current_level=results[3])
-            #ret = render_template('query.html', current_level=results[3])
-            #print(ret)
-            #return render_template('query.html', current_level=results[3])
-        else:
-            return '用户名或密码不正确'
-
         # 提交到数据库执行
-            db2.commit()
-
+            return render_template('loginsuccess.html', current_level=results[3])
+        else: 
+            return '用户名或密码不正确'
+            # 执行sql语句
+      
+       
+    '''
     except:
         # 如果发生错误则回滚
         traceback.print_exc()
         db2.rollback()
-
-    # 关闭cursor
-    cursor.close()
-
-    # 关闭数据库连接
-    db2.close()
+    '''
+ 
 
     
 # 注册界面
-@app.route('/register')
+@app.route('/reg')
 def register():
-    return render_template('register.html')
+    return render_template('reg.html')
 
 # 获取注册请求及处理
 @app.route('/registuser')
@@ -203,7 +208,7 @@ def getRegisterRequest():
     sql_if_exist = "select * from user where user = '%s'" % request.args.get('user')
     cursor.execute(sql_if_exist)
 
-    if (len(cursor.fetchall())):
+    if(len(cursor.fetchall())):
         return '用户名已存在'
     
     '''

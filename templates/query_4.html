@@ -1,4 +1,3 @@
-{% extends "base.html" %}
 
 {% block body %}
 <div class="row">
@@ -7,6 +6,8 @@
     <h5>the node2 hashed information: {{ node2 }}</h5>
     <hr/>
     <h5>the root hashed information: {{ node_root }}</h5>
+    <hr/>
+	<h5><a href="{{url_for('mainpage')}}">Back to main page</a></h5>
     <hr/>
 </div>
 {% endblock %}
