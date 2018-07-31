@@ -1,56 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Ptero Homepage</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="../static/css/home.css" rel="stylesheet">
-    </head>
-    <body>
-        {% block body %}
-        <div id="top">
-            <div id="menu">
-                <ul>
-                    <li><img src="../static/img/ptero_white.jpg" width="100%" height="30%"></li>
-                    <li><a href="{{url_for('mainpage')}}">Main Page</a></li>
-                    <li class="mi"><a href="{{url_for('loginpage')}}">Login </a></li>
-                    <li class="mi"><a href="{{url_for('regpage')}}">Sign up</a></li>
-                    <li><a href="">Donate</a></li>
-                    <li><a href="https://www.cryptopp.com/wiki/SM2">Wiki</a></li>
-                    <li><a href="">Help</a></li>
-    
-                </ul>
-            </div>
-        </div>
-        
-        <div id="body">
-               
-            <p><img src="../static/img/ptero_white.jpg" width="50%" height="10%" class="img"></p>
-            {% if current_level == 1 %}
-            <form method="POST" action="{{ url_for('query_1')}}">
-                <p><input type="text" value="" placeholder="当前等级:1" name="queryname" class="textbox">
-                <input type="submit" value="Search" class="submit"></p>
-            </form>
-            {% elif current_level == 2 %}
-            <form method="POST" action="{{ url_for('query_2')}}">
-                    <p><input type="text" value="" placeholder="当前等级:2" name="queryname" class="textbox">
-                    <input type="submit" value="Search" class="submit"></p>
-            </form>
-            {% elif current_level == 3 %}
-            <form method="POST" action="{{ url_for('query_3')}}">
-                    <p><input type="text" value="" placeholder="当前等级:3" name="queryname" class="textbox">
-                    <input type="submit" value="Search" class="submit"></p>
-            </form>
-            {% else %}
-            <form method="POST" action="{{ url_for('query_4')}}">
-                    <p><input type="text" value="" placeholder="当前等级:4" name="queryname" class="textbox">
-                    <input type="submit" value="Search" class="submit"></p>
-            </form>
-            {% endif %}
-        </div>
-        <div id="bottom">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{{url_for('static',filename='../static/img/icon1.png')}}">
 
+    <title>Ptero - Welcome To Our System</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../static/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/home.css" rel="stylesheet">
+
+    
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../static/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+    <div class="navbar-wrapper">
+      <div class="container">
+            <div class="container">
+
+                    <!-- Static navbar -->
+                    <nav class="navbar navbar-default">
+                      <div class="container-fluid">
+                        <div class="navbar-header">
+                          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                          </button>
+                          <a class="navbar-brand" href="#">Ptero</a>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                          <ul class="nav navbar-nav">
+                      
+                                  <li><a href="{{ url_for('querypage',current_level=current_level,user_name=user_name) }}">Home</a></li>
+                                  {% if is_login != "1" %}
+                                  <li ><a href="{{url_for('loginpage')}}">Log in </a></li>
+                                  {% endif %}
+                                  <li ><a href="{{url_for('regpage')}}">Sign Up</a></li>
+          
+                          </ul>
+                          <ul class="nav navbar-nav navbar-right">
+                                  <li class="dropdown">
+                                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+                                          <ul class="dropdown-menu">
+                                            <li><a href="{{url_for('profilepage')}}">My Profile</a></li>
+                                  
+                                            <li><a href="{{url_for('datamngpage',current_level=current_level,user_name = user_name)}}">Admin Dashboard</a></li>
+
+                                            <li role="separator" class="divider"></li>
+                                            <li class="dropdown-header">Search Settings</li>
+                                            <li><a href="#">Vague Match</a></li>
+                                            <li><a href="#">Regular Expression</a></li>
+                                          </ul>
+                                  </li>
+                           
+                                  {% if current_level=="1" %}
+                                    <form name="form_search" method="POST" class="navbar-form navbar-right" action="{{ url_for('query_1',user_name=user_name,is_login=is_login)}}">
+                                      <div class="form-group">    
+                                      <class="lead"><input type="text" value="" placeholder="当前等级:1" name="queryname" class="form-control">
+                                      <button type="submit" class="btn btn-primary" onsubmit="return checkSearch();">Search</button>
+                                      </div>
+                                    </form>
+                                  {% elif current_level=="2" %}
+                                    <form name="form_search" method="POST" class="navbar-form navbar-right" action="{{ url_for('query_2',user_name=user_name,is_login=is_login)}}">
+                                      <div class="form-group">    
+                                        <class="lead"><input type="text" value="" placeholder="当前等级:2" name="queryname" class="form-control">
+                                          <button type="submit" class="btn btn-primary" onsubmit="return checkSearch();">Search</button>
+                                          </div>
+                                    </form>
+                                  {% elif current_level=="3" %}
+                                    <form name="form_search" method="POST" class="navbar-form navbar-right" action="{{ url_for('query_3',user_name=user_name,is_login=is_login)}}">
+                                      <div class="form-group">    
+                                        <class="lead"><input type="text" value="" placeholder="当前等级:3" name="queryname" class="form-control">
+                                          <button type="submit" class="btn btn-primary" onsubmit="return checkSearch();">Search</button>
+                                      </div>
+                                    </form>
+                                  {% else %}
+                                    <form name="form_search" method="POST" class="navbar-form navbar-right" action="{{ url_for('query_4',user_name=user_name,is_login=is_login)}}">
+                                      <div class="form-group">    
+                                        <class="lead"><input type="text" value="" placeholder="当前等级:4" name="queryname" class="form-control">
+                                          <button type="submit" class="btn btn-primary" onsubmit="return checkSearch();">Search</button>
+                                      </div>
+                                    </form>
+                                  {% endif %}
+                                  
+                                  <li ><a href="">Welcome! {{ user_name}}</a></li>
+                                  <li ><a href="{{url_for('querypage',current_level=4,user_name="Tourist",is_login=0)}}">Log Out</a></li>
+                          </ul>
+                        </div><!--/.nav-collapse -->
+              
+                      
+              
+                      </div><!--/.container-fluid -->
+                    </nav>
+
+      </div>
+    </div>
+
+
+   
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="img-circle" src="{{url_for('static',filename='../static/img/lock.jpg')}}" alt="Generic placeholder image" width="140" height="140">
+          <h2>Introduction to Ptero</h2>
+          <p>本项目对比数据存储的多种方案，总结了这些数据模型的优缺点，在兼顾存储空间和算法实现复杂度的基础上提出了新型的改进型哈夫曼树存储方案。</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="{{url_for('static',filename='../static/img/icon1.png')}}" alt="Generic placeholder image" width="140" height="140">
+          <h2>Auxilliary Tools</h2>
+          <p>项目附带有离线验证工具，用python写成，用于验证用户获得的信息和哈希值的完整性。下面是百度云盘的下载链接。</p>
+          <p><a class="btn btn-default" href="https://pan.baidu.com/s/1mqwtoPtfvFr2amn1TDEpxQ" role="button">Download !</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="{{url_for('static',filename='../static/img/icon3.jpg')}}" alt="Generic placeholder image" width="140" height="140">
+          <h2>Documentations</h2>
+          <p>数据库按照 Huffman 树进行数据类型存放，相比直接存放和 Merkle 树返回的数据总量更少，查询效率更高。</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+    
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">应用前景分析 <span class="text-muted">网页防篡改的重要性</span></h2>
+          <p class="lead">近年来，网络安全问题频发，网络黑色产业已经形成了一条完善的产业链，互联网上的信息存在这极大的安全隐患。对于查询系统，如果返回的数据被篡改，影响的将是各行各业的方方面面：金融系统可能因此而造成巨额损失，科研机构可能因此而导致实验失败前功尽弃，政府、学校等官方机构可能因此而损失公信力，影响社会的和谐稳定。现有的网页防篡改系统均需大量的动态扫描，开销极大。如果采用了基于消息的选择性泄露的安全可验证查询系统，那么防篡改系统就可以极大的减少扫描频率，降低开销。
+              我们了解发现，许多企业都在寻找一种安全可靠而又开销较小的防篡改系统方案。因此我们的可验证查询系统是非常具有发展前景的。
+          </p>
         </div>
-        {% endblock %}
-    </body>
-    </html>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" src="{{url_for('static',filename='../static/img/feature1.jpg')}}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+     
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">实现原理 <span class="text-muted">消息的选择性泄露</span></h2>
+            <p class="lead">选择性泄露最早是应用在数字证书上的隐私保护措施。数字证书的概念首先是由 Brands 提出来的。数字证书由权威机构 CA 签名发放，代表了证书持有者的身份。数字证书上的内容包括 CA 的公钥和证书持有人一个或者多个属性等。 目前最广泛使用的证书标准是 X.509v3 ，它最重要的特点是提供了一个或多个扩展字段来支持绑定证书持有人的额外信息。但不幸的是对扩展字段的隐私保护没有得到重视，数字证书被展示的同时，扩展中包含的全部信息也都被泄漏了。而这其中有些信息可能是证书持有人不愿意泄漏的，或者有些信息是和当前对话没有关系的。
+            </p>
+          </div>
+          <div class="col-md-5">
+            <img class="featurette-image img-responsive center-block" src="{{url_for('static',filename='../static/img/feature2.jpg')}}" alt="Generic placeholder image">
+          </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy;  2018 不会前端 Group  . &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a> &middot; <a href="#">Donate</a>&middot; <a href="#">Contact Us</a>&middot;<a href ="https://www.cryptopp.com/wiki/SM2">Wiki</a>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+     <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../static/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/docs.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../static/js/ie10-viewport-bug-workaround.js"></script>
+    <script>
+       function checkSearch() {
+         if(form_search.queryname=="")
+         {
+           alert("请输入搜索内容");
+           return false;
+         }
+         return true;
+           
+    }
+    
+    </script>
+  </body>
+</html>

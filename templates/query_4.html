@@ -1,13 +1,120 @@
 
-{% block body %}
-<div class="row">
-    <h2>the public information: {{ attribute4 }}</h2>
-    <hr/>
-    <h5>the node2 hashed information: {{ node2 }}</h5>
-    <hr/>
-    <h5>the root hashed information: {{ node_root }}</h5>
-    <hr/>
-	<h5><a href="{{url_for('mainpage')}}">Back to main page</a></h5>
-    <hr/>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{{url_for('static',filename='../static/img/icon1.png')}}">
+
+    <title>Query Result Level 4</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../static/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <script src="../static/js/ie-emulation-modes-warning.js"></script>
+
+  </head>
+
+  <body>
+
+        <div class="navbar-wrapper">
+                    <div class="container">
+                          <div class="container">
+              
+                                  <!-- Static navbar -->
+                                  <nav class="navbar navbar-default">
+                                    <div class="container-fluid">
+                                      <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                          <span class="sr-only">Toggle navigation</span>
+                                          <span class="icon-bar"></span>
+                                          <span class="icon-bar"></span>
+                                          <span class="icon-bar"></span>
+                                        </button>
+                                        <a class="navbar-brand" href="#">Ptero</a>
+                                      </div>
+                                      <div id="navbar" class="navbar-collapse collapse">
+                                        <ul class="nav navbar-nav">
+                                        
+                                            
+                                          <li><a href="{{url_for('querypage',current_level=current_level,user_name=user_name,is_login=1)}}">Home</a></li>
+                                          
+              
+                                      </ul>
+                                      <ul class="nav navbar-nav navbar-right">
+                                          <li><a href="">Level: {{current_level}}</a></li>
+                                          <li ><a href="{{url_for('querypage',current_level=4,user_name='Tourist',is_login=0)}}">Log Out</a></li>
+  
+                                      </ul>
+                                      </div><!--/.nav-collapse -->
+                            
+                                    
+                            
+                                    </div><!--/.container-fluid -->
+                                  </nav>
+              
+                    </div>
+                  </div>
+        </div> <!--navbar wrapper end-->
+    
+    
+            
+             
+              <div class="table-responsive">
+                <table class="table table-striped">
+                    <h2>共查找到{{results_len}}条匹配结果:</h2>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>company name</th>
+                      <th>legal person</th>
+                      <th>capital amount</th>
+                      <th>Node1 验证信息</th>
+                      <th>Root 验证信息</th>
+                    </tr>
+                  </thead>
+                  
+                  <hr></hr>
+                  <tbody>
+                        {% for result in results %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{result[0]}}</td>
+                        <td>{{result[1]}}</td>
+                        <td>{{result[2]}}</td>
+                        <td>{{result[3]}}</td>
+                        <td>{{result[4]}}</td>
+                        {% endfor %}
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+        </div>
+          <!-- FOOTER -->
+         <hr></hr>
+         <!--<h5><a href="{{url_for('mainpage')}}">Back to main page</a></h5>-->
+        <footer>
+                <p class="pull-right"><a href="#">Back to top</a></p>
+                <p>&copy;  2018 不会前端 Group  . &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a> &middot; <a href="#">Donate</a>&middot; <a href="#">Contact Us</a>&middot;<a href ="https://www.cryptopp.com/wiki/SM2">Wiki</a>
+              </footer>
+        </div> <!--container-fliud end-->
+    
+    
+        <script src="../static/js/jquery-1.12.4/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../static/js/vendor/jquery.min.js"><\/script>')</script>
+        <script src="../static/js/bootstrap.min.js"></script>
+        <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+        <script src="../static/js/vendor/holder.min.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../static/js/ie10-viewport-bug-workaround.js"></script>
+      </body>

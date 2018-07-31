@@ -7,7 +7,7 @@ body{
     padding: 0px;
     margin: 0px;
     font-size: 14px;
-    font-family: "微软雅黑";
+    font-family: "Arial";
 }
 #top{
     width: 100%;
@@ -38,7 +38,7 @@ body{
     display: inline-block;
 }
 #menu ul li a:hover{
-    color: #3e9eca;
+    color:rgb(34, 110, 252)
 }
 .line{
     border-bottom: 1px solid #bbbbbb;
@@ -59,12 +59,12 @@ body{
 
 .t1{
 	font-size: 28px;
-    font-family: "微软雅黑";
+    font-family: "Arial";
     margin-top: 15px;
 }
 .t2{
 	font-size: 15px;
-	font-family: "微软雅黑";
+	font-family: "Arial";
     color: #999999;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -72,18 +72,19 @@ body{
 .textbox{
 	width: 350px;
 	height: 40px;
-	border: 1px solid #3e9eca;
+	border: 1px solid rgb(10, 81, 211);
 	border-radius: 3px;
     padding-left: 10px;
     margin-bottom: 15px;
 }
 .submit{
 	width: 360px;
-	height: 40px;
-	background-color: #3e9eca;
-	color: white;
-    border: 1px solid #3e9eca;
+    height: 40px;
+    
     margin-bottom: 20px;
+
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .text{

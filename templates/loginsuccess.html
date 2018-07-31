@@ -9,7 +9,8 @@
     <body>
         <p>登录成功</p>
         <p>当前等级:{{ current_level }}</p>
-        <a href="{{ url_for('querypage', current_level=current_level) }}">click here to the main page</a>
+        <p>User:{{ user_name }}</p>
+        <a href="{{ url_for('querypage',current_level=current_level,user_name=user_name,is_login=1) }}">click here to the main page</a>
     </body>
     </html>
 

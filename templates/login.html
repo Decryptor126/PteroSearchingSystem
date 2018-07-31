@@ -1,38 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Login</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="../static/css/login.css" rel="stylesheet">
-    </head>
-    <body>
        
-        <div id="top">
-            <div id="menu">
-                <ul>
-                    <li><img src="../static/img/ptero_white.jpg" width="100%" height="30%"></li>
-                    <li><a href="{{url_for('mainpage')}}">Main Page</a></li>
-                    <li class="mi"><a href="{{url_for('loginpage')}}">Login </a></li>
-                    <li class="mi"><a href="{{url_for('regpage')}}">Sign up</a></li>
-                    <li><a href="">Donate</a></li>
-                    <li><a href="https://www.cryptopp.com/wiki/SM2">Wiki</a></li>
-                    <li><a href="">Help</a></li>
-            
-                </ul>
-            </div>
-        </div>
+        <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+            <meta name="description" content="">
+            <meta name="author" content="">
+            <link rel="icon" href="{{url_for('static',filename='../static/img/icon1.png')}}">
+        
+            <title>Login</title>
+        
+            <!-- Bootstrap core CSS -->
+            <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+        
+            <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+            <link href="../static/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+        
+            <!-- Custom styles for this template -->
+            <link href="../static/css/login.css" rel="stylesheet">
+            <script src="../static/js/ie-emulation-modes-warning.js"></script>
+        
+          </head>
+        
+          <body>
+        
+            <div class="navbar-wrapper">
+                        <div class="container">
+                              <div class="container">
+                  
+                                      <!-- Static navbar -->
+                                      <nav class="navbar navbar-default">
+                                        <div class="container-fluid">
+                                          <div class="navbar-header">
+                                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                              <span class="sr-only">Toggle navigation</span>
+                                              <span class="icon-bar"></span>
+                                              <span class="icon-bar"></span>
+                                              <span class="icon-bar"></span>
+                                            </button>
+                                            <a class="navbar-brand" href="#">Ptero</a>
+                                          </div>
+                                          <div id="navbar" class="navbar-collapse collapse">
+                                            <ul class="nav navbar-nav">
+                                        
+                                                <li><a href="{{ url_for('querypage',current_level=current_level,user_name=user_name) }}">Home</a></li>
+                                                   
+                                            </ul>
+                                           
+                                          </div><!--/.nav-collapse -->
+                                
+                                        
+                                
+                                        </div><!--/.container-fluid -->
+                                      </nav>
+                  
+                        </div>
+                      </div>
+            </div> <!--navbar wrapper end-->
         <div id="box">
-        <form name = "form_login" method="get" action='/login'>
-            <p><img src="../static/img/1.jpg" width="50%" height="25%"> </p>
-            <p class="t1">Login Ptero</p>
-			<p class="t2">Release Version 0.1</p>
+
+        <form name = "form_login" method="POST" action='/login' class="submit">
+            
+            <p class="t1">Ptero Login </p>
+			<p class="t2">Released Version 0.1</p>
 			<p><input type="text" value="" placeholder="Enter Your Username"name="user" class="textbox"></p>
 			<p><input type="password" value="" name="password" placeholder="Password"class="textbox"></p>
-            <p><input type="submit" value="Login" class="submit" onsubmit="return Gomain()"></p>
-        </form>
-        <form name = "form_reg" method="get" action='/reg'>
-            <p><input type="submit" value="Sign up" class="submit"></p>
+            <button type="submit" value="Login" class="submit btn btn-lg btn-primary " onsubmit="return Gomain()">Login</button>
         </form>
         </div>
     <script>
@@ -42,5 +77,17 @@
         return true;
      }
     </script>
-    </body>
+     <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../static/js/jquery-1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../static/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="../static/js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../static/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
+
         
